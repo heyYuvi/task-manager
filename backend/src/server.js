@@ -3,7 +3,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import DBconnect from "./config/db.js";
-import userRouter from "./routes/userRouter.js"
+import userRouter from "./routes/userRouter.js";
+import taskRouter from "./routes/taskRoutes.js";
 import { protect } from "./middlewares/authMiddleware.js";
 
 dotenv.config();
@@ -20,7 +21,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.get("/api/health", protect, (req, res) => {
+app.get("/api/health", (req, res) => {
     res.json({
         success: true,
         status: "ok",
@@ -30,6 +31,7 @@ app.get("/api/health", protect, (req, res) => {
 });
 
 app.use("/api", userRouter);
+app.use("/api", taskRouter);
 
 const startServer = async () => {
     try {
