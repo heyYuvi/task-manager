@@ -21,8 +21,14 @@ const userSchema = new mongoose.Schema({
         minlength: 8
     },
     avatar: {
+        url: {
         type: String,
         default: "https://i.pinimg.com/736x/13/74/20/137420f5b9c39bc911e472f5d20f053e.jpg"
+        },
+        public_id: {
+            type: String,
+            default: ""
+        }
     }
 }, { timestamps: true });
 
