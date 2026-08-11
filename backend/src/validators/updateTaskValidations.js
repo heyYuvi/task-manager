@@ -17,10 +17,11 @@ const updateTaskSchema = z.object({
     priority: z
     .enum(["low", "medium", "high"])
     .optional(),
-    dueDate: z
-    .coerce
+    dueDate: z.preprocess((value) => value === "" ? undefined : value,
+    z.coerce
     .date()
     .optional()
+    )
 });
 
 export default updateTaskSchema;

@@ -16,10 +16,11 @@ const taskSchema = z.object({
     priority: z
     .enum(["low", "medium", "high"])
     .default("medium"),
-    dueDate: z
-    .coerce
+    dueDate: z.preprocess((value) => value === "" ? undefined : value,
+    z.coerce
     .date()
     .optional()
+    )
 });
 
 export default taskSchema;
