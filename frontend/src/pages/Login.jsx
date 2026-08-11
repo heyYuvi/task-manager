@@ -1,8 +1,12 @@
 import { useState } from "react";
 import api from "../components/api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () =>{
+
+    const navigate = useNavigate()
+
     const [form, setForm] = useState({
         email: "",
         password: ""
@@ -25,6 +29,7 @@ const Login = () =>{
             email: "",
             password: ""
         });
+        navigate("/");
         }catch(error){
             toast.error(error.response?.data?.message || "Something Went Wrong");
         }
