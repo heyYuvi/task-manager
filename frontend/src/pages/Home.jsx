@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../components/api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import Logout from "../components/Logout";
 
 
 const Home = () => {
@@ -12,7 +13,15 @@ const Home = () => {
     const [search, setSearch] = useState("");
     const [status, setStatus] = useState("");
     const [priority, setPriority] = useState("");
+    const [page, setPage] = useState(1);
+    const [pageNumber, setPageNumber] = useState(0);
     const [loading, setLoading] = useState(true);
+    const pages = [];
+
+    for (let i=1; i<=pageNumber; i++){
+        pages.push(i);
+    }
+    console.log(pages);
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -20,15 +29,17 @@ const Home = () => {
                 params: {
                     search,
                     status,
-                    priority
+                    priority,
+                    page
                 }
             });
             setTasks(res.data.data);
+            setPageNumber(res.data.totalPage);
             setLoading(false);
         }
 
         fetchTasks();
-    }, [search, status, priority]);
+    }, [search, status, priority, page]);
 
     const handleDelete = async (id) =>{
         try{
@@ -85,6 +96,16 @@ const Home = () => {
                     ))
                 }
             </div>
+            <div>
+                <button onClick={() =>{setPage(page - 1)}} disabled={page === 1}>Previous</button>
+                {
+                    pages.map((p) =>(
+                        <button key={p} onClick={() =>{setPage(p)}}>{p}</button>
+                    ))
+                }
+                <button onClick={() =>{setPage(pages + 1)}} disabled={page === pageNumber}>next</button>
+            </div>
+            <Logout />
         </div>
     )
 }
