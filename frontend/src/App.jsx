@@ -6,6 +6,8 @@ import { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
 import EditTask from "./pages/EditTask";
 import CreateTask from "./pages/CreateTask";
+import MainLayout from "./layout/MainLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 
@@ -13,11 +15,16 @@ function App() {
     <>
     <Toaster />
     <Routes>
-      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />}/>
+      
+      <Route element={<ProtectedRoute />}>
+      <Route element={<MainLayout />}>
+      <Route path="/" element={<Home />} />
       <Route path="/edit/:id" element={<EditTask />} />
       <Route path="/create" element={<CreateTask />} />
+      </Route>
+      </Route>
     </Routes>
     </>
   )

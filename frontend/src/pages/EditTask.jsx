@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import api from "../components/api";
+import api from "../services/api";
 import toast from "react-hot-toast";
 
 const EditTask = () => {
