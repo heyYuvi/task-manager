@@ -276,3 +276,13 @@ export const updateProfile = async (req, res) =>{
         });
     }
 }
+
+// Get Me
+
+
+export const getMe = (req, res) =>{
+    res.json({
+        success: true,
+        user: req.user
+    });
+}
