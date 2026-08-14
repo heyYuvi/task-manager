@@ -8,6 +8,7 @@ import EditTask from "./pages/EditTask";
 import CreateTask from "./pages/CreateTask";
 import MainLayout from "./layout/MainLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
+import UpdateProfile from "./pages/UpdateProfile";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/edit/:id" element={<EditTask />} />
       <Route path="/create" element={<CreateTask />} />
+      <Route path="/updateProfile" element={<UpdateProfile />} />
       </Route>
       </Route>
     </Routes>
