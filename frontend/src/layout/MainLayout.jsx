@@ -4,10 +4,9 @@ import Navbar from "../components/Navbar";
 const MainLayout = () =>{
 
     return(
-        <div>
+        <div className="w-full h-screen flex ">
             <Navbar />
-
-            <main>
+            <main className="flex-1 bg-[#FFFEF7]">
                 <Outlet />
             </main>
         </div>
