@@ -6,6 +6,12 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { CiSettings } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import { FaSearch } from "react-icons/fa";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { FiMinus } from "react-icons/fi";
+import { FaTrash } from "react-icons/fa";
+import { FaAngleRight } from "react-icons/fa";
+import { FaAngleLeft } from "react-icons/fa";
+
 
 
 const Home = () => {
@@ -108,38 +114,97 @@ const Home = () => {
                 </div>
             </div>
             </div>
-            <div>
+            <div className="">
+                <div className="grid grid-cols-[2fr_1fr_1fr_1fr_70px] items-center p-4 bg-blue-100 rounded-md mb-6 text-sm text-gray-600 ">
+                    <div>
+                        <p>TASK DETAILS</p>
+                    </div>
+                    <div>
+                        <p>STATUS</p>
+                    </div>
+                    <div>
+                        <p>PRIORITY</p>
+                    </div>
+                    <div>
+                        <p>DUE DATE</p>
+                    </div>
+                    <div>
+                        <p>ACTIONS</p>
+                    </div>
+                </div>
                 {
                     tasks.map((task) =>(
-                        <div key={task.id}>
-                            <h1>{task.title}</h1>
-                            <p>{task.description}</p>
-                            <p>{task.status}</p>
-                            <p>{task.priority}</p>
-                            <p>{task.dueDate}</p>
-                            <p>{new Date(task.createdAt).toLocaleDateString("en-UN", {
-                                month: "long",
-                                day: "numeric",
-                                year: "numeric"
-                            })}</p>
-                            <div>
-                                <button onClick={() =>{navigate(`/edit/${task.id}`)}}>Edit</button>
-                                <button onClick={() =>{handleDelete(task.id)}}>Delete</button>
+                        <div key={task.id} className="grid grid-cols-[2fr_1fr_1fr_1fr_70px] items-center mb-2 p-3 rounded-md bg-white hover:bg-blue-100 transition cursor-pointer">
+                            <div  onClick={() =>{navigate(`/edit/${task.id}`)}} className="flex flex-col min-w-0">
+                            <h1 className="font-semibold">{task.title}</h1>
+                            <p className="text-sm text-gray-600 truncate">{task.description}</p>
+                            </div>
+                            <div className={`flex items-center gap-1 w-fit px-1 py-1 rounded-lg text-xs ${
+                                task.status === "pending"? "bg-gray-300" : task.status === "in-progress"? "bg-blue-200 font-semibold" : "bg-gray-200 text-gray-400"
+                            }`}>
+                                <span className={`w-1.5 h-1.5 rounded-full ${
+                                    task.status === "pending"? "bg-gray-600": task.status === "in-progress"? "bg-blue-500": "bg-gray-400"
+                                } `}/>
+                                <p>{
+                                task.status === "pending" ? "Pending": task.status === "in-progress"? "In-Progress": "Completed"
+                                }</p>
+                            </div>
+                            <div className={`flex items-center  gap-1 text-sm rounded-full w-fit px-1 py-1 ${
+                                task.priority === "low"? "text-gray-600 bg-blue-50": task.priority === "high"? "bg-red-100 text-red-500": "bg-orange-100 text-orange-600"
+                            }`}>
+                                {
+                                    task.priority === "high"? (
+                                        <FaArrowUp size={10}/>
+                                    ) : task.priority === "medium"? (
+                                        <FiMinus size={10}/>
+                                    ) : (
+                                        <FaArrowDown size={10}/>
+                                    )
+                                }
+                                <p>{
+                                task.priority === "low"? (
+                                    "Low"
+                                ): task.priority === "high"? (
+                                    "High" 
+                                ): (
+                                    "Medium"
+                                )
+                                }</p>
+                            </div>
+                            <div>{
+                                task.dueDate&&(
+                                     <p className="text-sm text-gray-500">{new Date(task.dueDate).toLocaleDateString("en-Us", {
+                                    day: "numeric",
+                                    month: "short",
+                                    year:"numeric"
+                                })}</p>
+                                )
+                                }
+                            </div>
+                            <div className="">
+                                <button onClick={() =>{handleDelete(task.id)}}><FaTrash className="hover:text-red-600 cursor-pointer transition"/> </button>
                             </div>
                         </div>
                     ))
                 }
             </div>
-            <div>
-                <button onClick={() =>{setPage(page - 1)}} disabled={page === 1}>Previous</button>
+            <div className="flex justify-center mt-10">
+                <div>
+                <button className={`mr-4 cursor-pointer transition ${
+                    page === 1 ? "text-gray-400" : "text-black hover:text-blue-400"
+                }`} onClick={() =>{setPage(page - 1)}} disabled={page === 1}><FaAngleLeft /></button>
                 {
                     pages.map((p) =>(
-                        <button key={p} onClick={() =>{setPage(p)}}>{p}</button>
+                        <button className={`font-bold cursor-pointer px-2 rounded-md mr-2 transition ${
+                            page === p ? "bg-blue-400 text-white" : "hover:bg-blue-400"
+                        }`} key={p} onClick={() =>{setPage(p)}}>{p}</button>
                     ))
                 }
-                <button onClick={() =>{setPage(pages + 1)}} disabled={page === pageNumber}>next</button>
+                <button className={`mr-4 cursor-pointer transition ${
+                    page === pageNumber ? "text-gray-400" : "text-black hover:text-blue-400"
+                }`} onClick={() =>{setPage(page + 1)}} disabled={page === pageNumber}><FaAngleRight /></button>
             </div>
-            
+            </div>
         </div>
         </div>
     )

@@ -4,9 +4,9 @@ import Navbar from "../components/Navbar";
 const MainLayout = () =>{
 
     return(
-        <div className="w-full h-screen flex ">
+        <div className="w-full h-screen flex scroll-smooth">
             <Navbar />
-            <main className="flex-1 bg-[#FFFEF7]">
+            <main className="flex-1 bg-blue-50">
                 <Outlet />
             </main>
         </div>
